@@ -1,7 +1,7 @@
 ### Tasks
 
 - [ ] Create Basic Visual Structure of all Pages
-- [ ] Setup Database & Socket Server
+- [x] Setup Database & Socket Server
 - [ ] Setup Authentication
 - [ ] Protect Routes on Frontend
 - [ ] Complete Public Chat Room (End-to-End)
