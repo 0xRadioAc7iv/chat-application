@@ -4,7 +4,7 @@
 - [x] Setup Database & Socket Server
 - [x] Setup Authentication
 - [ ] Setup Google OAuth2 Authentication
-- [ ] Protect Routes on Frontend
+- [x] Protect Routes on Frontend
 - [ ] Complete Public Chat Room (End-to-End)
 - [ ] Complete Private Chat Room (End-to-End)
 - [ ] Show new (unread) messages count in the chat room

@@ -7,6 +7,7 @@ import http from "http";
 import session from "express-session";
 import passport from "passport";
 import authRouter from "./routes/auth";
+import MongoStore from "connect-mongo";
 
 configDotenv();
 
@@ -34,6 +35,9 @@ app.use(
     cookie: {
       maxAge: 604800, // 7 Days
     },
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGODB_URL as string,
+    }),
   })
 );
 app.use(passport.initialize());

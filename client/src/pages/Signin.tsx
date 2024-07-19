@@ -1,4 +1,5 @@
 import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 const Signin = () => {
   return (
@@ -28,6 +29,9 @@ const Signin = () => {
             </button>
           </div>
         </form>
+      </div>
+      <div>
+        Don't have an account? <Link to="/signup">Sign up</Link> here
       </div>
     </div>
   );
