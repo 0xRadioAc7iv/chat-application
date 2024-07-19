@@ -2,7 +2,8 @@
 
 - [x] Create Basic Visual Structure of all Pages
 - [x] Setup Database & Socket Server
-- [ ] Setup Authentication
+- [x] Setup Authentication
+- [ ] Setup Google OAuth2 Authentication
 - [ ] Protect Routes on Frontend
 - [ ] Complete Public Chat Room (End-to-End)
 - [ ] Complete Private Chat Room (End-to-End)
