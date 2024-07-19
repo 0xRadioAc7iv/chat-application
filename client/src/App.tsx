@@ -1,8 +1,19 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Landing from "./pages/Landing";
+import Signup from "./pages/Signup";
+import Signin from "./pages/Signin";
+import Chat from "./pages/Chat";
+
 function App() {
   return (
-    <>
-      <h1>Hello!</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/chat" element={<Chat />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
