@@ -5,13 +5,12 @@
 - [x] Setup Authentication
 - [ ] Setup Google OAuth2 Authentication
 - [x] Protect Routes on Frontend
-- [ ] Complete Public Chat Room (End-to-End)
+- [x] Complete Public Chat Room (End-to-End)
 - [ ] Complete Private Chat Room (End-to-End)
-- [ ] Show new (unread) messages count in the chat room
+- [ ] Show new (unread) messages count in the private chats
 - [ ] Logic for Caching latest 50 Public Chat Messages
-- [ ] Logic for Deletion of Private Chats after a Day
-- [ ] Logic for Notifications in Private Chats
+- [ ] Notification Sound in Private Chats
 - [ ] Add Styling
-- [ ] Refactor (If Needed)
+- [ ] Refactor & Improve the Code
 - [ ] Deploy & Test Live Project
 - [ ] Experiment with CI/CD Pipeline

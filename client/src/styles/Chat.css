@@ -1,0 +1,14 @@
+#main {
+  display: flex;
+  flex-direction: row;
+}
+
+#sidebar {
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+#leave-chat-room {
+  text-decoration: none;
+  color: black;
+}

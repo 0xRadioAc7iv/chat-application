@@ -46,7 +46,30 @@ app.use(passport.session());
 app.use(authRouter);
 
 io.on("connection", (socket) => {
-  console.log(`${socket} just connected!`);
+  console.log(`${socket.id} just connected!`);
+
+  // Notify users in public room when some connects or disconnects
+
+  socket.on("send_public_message", (data) => {
+    const dataToSend = {
+      user: socket.id,
+      text: data.message,
+      timeStamp: Date.now(),
+    };
+    io.to("public_room").emit("receive_public_message", dataToSend);
+  });
+
+  socket.on("join_public_room", () => {
+    socket.join("public_room");
+  });
+
+  socket.on("leave_public_room", () => {
+    socket.leave("public_room");
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`${socket.id} just disconnected!`);
+  });
 });
 
 mongoose.connect(process.env.MONGODB_URL as string).then(() => {
