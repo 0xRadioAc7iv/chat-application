@@ -47,6 +47,12 @@ const Chat = () => {
     };
   }, [socket]);
 
+  useEffect(() => {
+    fetch("http://localhost:3000/api/get-latest-messages")
+      .then((response) => response.json())
+      .then((data) => setMessagesArray(data.latestMessages));
+  }, []);
+
   return (
     <div id="main">
       <div id="sidebar">

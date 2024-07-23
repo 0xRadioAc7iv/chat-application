@@ -1,35 +1,33 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Signup from "./pages/Signup";
 import Signin from "./pages/Signin";
 import Chat from "./pages/Chat";
-import PrivateRoutes from "./components/PrivateRoutes";
-import PublicRoutes from "./components/PublicRoutes";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 import { SocketProvider } from "./contexts/SocketContext";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<PrivateRoutes />}>
-          <Route
-            path="/chat"
+    <Routes>
+      <Route
+        path="/chat"
+        element={
+          <PrivateRoute
             element={
               <SocketProvider>
                 <Chat />
               </SocketProvider>
             }
           />
-        </Route>
+        }
+      />
 
-        <Route element={<PublicRoutes />}>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
-        </Route>
+      <Route path="/signup" element={<PublicRoute element={<Signup />} />} />
+      <Route path="/signin" element={<PublicRoute element={<Signin />} />} />
 
-        <Route path="/" element={<Landing />} />
-      </Routes>
-    </BrowserRouter>
+      <Route path="/" element={<Landing />} />
+    </Routes>
   );
 }
 

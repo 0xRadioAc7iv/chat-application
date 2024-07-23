@@ -1,37 +1,62 @@
-import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const { signup } = useAuth();
+  const [email, setEmail] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleFormSubmission = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    try {
+      await signup(email, username, password);
+      navigate("/", { replace: true });
+    } catch (error) {
+      alert("Failed to sign up");
+    }
+  };
+
   return (
     <div>
       <div>
         <h1>Create your account</h1>
       </div>
       <div>
-        <form method="post">
+        <form onSubmit={handleFormSubmission}>
           <label>Email: </label>
           <br />
-          <input type="email" name="email" required />
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <br />
+          <label>Username: </label>
+          <br />
+          <input
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
           <br />
           <label>Password: </label>
           <br />
-          <input type="password" name="password1" required />
-          <br />
-          <label>Confirm Password: </label>
-          <br />
-          <input type="password" name="passowrd2" required />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
           <br />
           <button type="submit">Signup</button>
-          <br />
-          <p>OR</p>
-          <div>
-            <button type="submit">
-              <div>
-                <FcGoogle />
-                Google
-              </div>
-            </button>
-          </div>
         </form>
       </div>
       <div>
