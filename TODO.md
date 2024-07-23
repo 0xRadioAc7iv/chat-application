@@ -6,10 +6,8 @@
 - [ ] Setup Google OAuth2 Authentication
 - [x] Protect Routes on Frontend
 - [x] Complete Public Chat Room (End-to-End)
-- [ ] Complete Private Chat Room (End-to-End)
-- [ ] Show new (unread) messages count in the private chats
-- [ ] Logic for Caching latest 50 Public Chat Messages
-- [ ] Notification Sound in Private Chats
+- [ ] Logic for Caching latest 25 Public Chat Messages
+- [x] Connect Frontend & Backend
 - [ ] Add Styling
 - [ ] Refactor & Improve the Code
 - [ ] Deploy & Test Live Project

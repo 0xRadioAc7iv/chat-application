@@ -59,4 +59,8 @@ router.post("/api/auth/signout", (request, response) => {
   }
 });
 
+router.get("/api/auth/status", (request, response) => {
+  return request.user ? response.sendStatus(200) : response.sendStatus(401);
+});
+
 export default router;

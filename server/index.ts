@@ -56,15 +56,7 @@ io.on("connection", (socket) => {
       text: data.message,
       timeStamp: Date.now(),
     };
-    io.to("public_room").emit("receive_public_message", dataToSend);
-  });
-
-  socket.on("join_public_room", () => {
-    socket.join("public_room");
-  });
-
-  socket.on("leave_public_room", () => {
-    socket.leave("public_room");
+    io.emit("receive_public_message", dataToSend);
   });
 
   socket.on("disconnect", () => {
