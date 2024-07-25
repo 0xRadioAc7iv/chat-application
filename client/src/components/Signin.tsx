@@ -1,29 +1,32 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useState } from "react";
 
-const Signup = () => {
+type SignInArgType = {
+  setIsSigningUp: (arg: Boolean) => void;
+};
+
+const Signin = ({ setIsSigningUp }: SignInArgType) => {
   const navigate = useNavigate();
-  const { signup } = useAuth();
+  const { signin } = useAuth();
   const [email, setEmail] = useState<string>("");
-  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleFormSubmission = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
-      await signup(email, username, password);
+      await signin(email, password);
       navigate("/", { replace: true });
     } catch (error) {
-      alert("Failed to sign up");
+      alert("Failed to sign in");
     }
   };
 
   return (
     <div>
       <div>
-        <h1>Create your account</h1>
+        <h1>Log in to your account</h1>
       </div>
       <div>
         <form onSubmit={handleFormSubmission}>
@@ -37,15 +40,6 @@ const Signup = () => {
             required
           />
           <br />
-          <label>Username: </label>
-          <br />
-          <input
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <br />
           <label>Password: </label>
           <br />
           <input
@@ -56,14 +50,15 @@ const Signup = () => {
             required
           />
           <br />
-          <button type="submit">Signup</button>
+          <button type="submit">Login</button>
         </form>
       </div>
       <div>
-        Have an account already? <Link to="/signin">Log in</Link> here
+        Don't have an account?{" "}
+        <div onClick={() => setIsSigningUp(true)}>Sign up</div> here
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Signin;

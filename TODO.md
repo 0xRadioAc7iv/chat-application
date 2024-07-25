@@ -10,5 +10,4 @@
 - [x] Signup/Signin from Frontend
 - [ ] Add Styling
 - [ ] Refactor & Improve the Code
-- [ ] Deploy & Test Live Project
-- [ ] Experiment with CI/CD Pipeline
+- [ ] Deploy
