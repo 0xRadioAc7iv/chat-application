@@ -8,6 +8,7 @@ import session from "express-session";
 import passport from "passport";
 import authRouter from "./routes/auth";
 import MongoStore from "connect-mongo";
+import { User } from "./types/User";
 
 configDotenv();
 
@@ -17,6 +18,8 @@ const server = http.createServer(app);
 
 // Holds the latest 25 messages sent to new users on joining the server
 const latestMessages: Array<Message> = [];
+// Holds details of all the online users
+const users: Array<User> = [];
 
 const io = new Server(server, {
   cors: {
@@ -65,7 +68,7 @@ io.on("connection", (socket) => {
 
   socket.on("send_public_message", (data) => {
     const dataToSend = {
-      user: socket.id,
+      user: data.username,
       text: data.message,
       timeStamp: Date.now(),
     };

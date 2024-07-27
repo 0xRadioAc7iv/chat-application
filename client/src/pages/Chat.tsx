@@ -4,6 +4,7 @@ import { useSocket } from "../contexts/SocketContext";
 import useSocketConnection from "../hooks/useSocketConnection";
 import { Socket } from "socket.io-client";
 import Message from "../components/Message";
+import { useAuth } from "../contexts/AuthContext";
 
 type Message = {
   user: string;
@@ -14,6 +15,8 @@ type Message = {
 const Chat = () => {
   const [userMessage, setUserMessage] = useState("");
   const [messages, setMessagesArray] = useState<Array<Message>>([]);
+  const users = ["manav", "m2", "m3"];
+  const { user } = useAuth();
 
   const displayMessages = messages.map((message, index) => {
     return (
@@ -30,7 +33,15 @@ const Chat = () => {
   useSocketConnection(socket as Socket);
 
   const sendMessage = async () => {
-    socket?.emit("send_public_message", { message: userMessage });
+    if (!userMessage) {
+      alert("Please enter a message!");
+      return;
+    }
+
+    socket?.emit("send_public_message", {
+      message: userMessage,
+      username: user,
+    });
     setUserMessage("");
   };
 
@@ -53,22 +64,48 @@ const Chat = () => {
   }, []);
 
   return (
-    <div id="main">
-      <div id="sidebar">
-        <Link to="/" id="leave-chat-room">
-          <div>← EXIT</div>
-        </Link>
+    <div className="flex h-screen bg-gray-200">
+      <div className="w-1/6 p-4 bg-white border-r border-gray-300">
+        <div className="font-bold text-xl text-green-500">
+          Users Online: {users.length}
+        </div>
+        <ul className="space-y-2">
+          {users.map((user, index) => (
+            <li
+              key={index}
+              className="text-gray-800 break-all text-xl mt-6 font-bold"
+            >
+              {user}
+            </li>
+          ))}
+        </ul>
       </div>
-      <div id="chat-main">
-        <div>{displayMessages}</div>
-        <div>
-          <input
-            type="text"
-            name="message"
-            value={userMessage}
-            onChange={(e) => setUserMessage(e.target.value)}
-          />
-          <button onClick={() => sendMessage()}>Send</button>
+      <div className="flex flex-col flex-1">
+        <div className="p-4">
+          <Link to="/" className="text-blue-500 hover:text-blue-700">
+            <div>Back to Home</div>
+          </Link>
+        </div>
+        <div className="flex-1 p-4 overflow-y-auto custom-scrollbar">
+          <div className="space-y-4">{displayMessages}</div>
+        </div>
+        <div className="p-4 bg-gray-100">
+          <div className="flex space-x-4">
+            <input
+              type="text"
+              name="message"
+              value={userMessage}
+              onChange={(e) => setUserMessage(e.target.value)}
+              className="flex-1 p-2 border border-gray-300 rounded-md"
+              placeholder="Type your message..."
+            />
+            <button
+              onClick={() => sendMessage()}
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700"
+            >
+              Send
+            </button>
+          </div>
         </div>
       </div>
     </div>

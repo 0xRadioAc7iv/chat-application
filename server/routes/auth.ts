@@ -31,7 +31,7 @@ router.post("/api/auth/signup", async (request, response) => {
       if (err) {
         return response.sendStatus(500);
       }
-      return response.sendStatus(201);
+      return response.status(201).send({ username: username });
     });
   } catch (error) {
     return response.sendStatus(500);
@@ -60,8 +60,9 @@ router.post("/api/auth/signout", (request, response) => {
 });
 
 router.get("/api/auth/status", (request, response) => {
-  console.log(request.session);
-  return request.user ? response.sendStatus(200) : response.sendStatus(401);
+  return request.user
+    ? response.status(200).send({ user: request.user })
+    : response.sendStatus(401);
 });
 
 export default router;

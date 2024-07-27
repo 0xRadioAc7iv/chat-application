@@ -8,7 +8,7 @@ type SignInArgType = {
 
 const Signin = ({ setIsSigningUp }: SignInArgType) => {
   const navigate = useNavigate();
-  const { signin } = useAuth();
+  const { signin, checkIsUserLoggedIn } = useAuth();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -17,6 +17,7 @@ const Signin = ({ setIsSigningUp }: SignInArgType) => {
 
     try {
       await signin(email, password);
+      checkIsUserLoggedIn();
       navigate("/", { replace: true });
     } catch (error) {
       alert("Failed to sign in");

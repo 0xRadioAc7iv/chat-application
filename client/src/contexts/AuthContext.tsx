@@ -8,10 +8,12 @@ import {
 import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
+  user: string;
   isAuthenticated: boolean;
   signin: (email: string, password: string) => Promise<void>;
   signup: (email: string, username: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  checkIsUserLoggedIn: () => void;
 }
 
 interface AuthProviderProps {
@@ -19,29 +21,38 @@ interface AuthProviderProps {
 }
 
 const defaultAuthContextValue: AuthContextType = {
+  user: "",
   isAuthenticated: false,
   signin: async () => {},
   signup: async () => {},
   logout: async () => {},
+  checkIsUserLoggedIn: async () => {},
 };
 
 const AuthContext = createContext<AuthContextType>(defaultAuthContextValue);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [user, setUser] = useState<string>("");
   const navigate = useNavigate();
 
   useEffect(() => {
+    checkIsUserLoggedIn();
+  }, []);
+
+  const checkIsUserLoggedIn = () => {
     fetch("http://localhost:3000/api/auth/status", { credentials: "include" })
-      .then((response) => {
+      .then(async (response) => {
         if (response.status === 200) {
           setIsAuthenticated(true);
         }
+        const userData = await response.json();
+        setUser(userData.user.username);
       })
       .catch(() => {
         setIsAuthenticated(false);
       });
-  }, []);
+  };
 
   const signin = async (email: string, password: string) => {
     try {
@@ -75,6 +86,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
       if (response.status === 201) {
         setIsAuthenticated(true);
+        const data = await response.json();
+        setUser(data.username);
         navigate("/", { replace: true });
       }
     } catch (error) {
@@ -96,7 +109,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signup, signin, logout }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated,
+        signup,
+        signin,
+        logout,
+        checkIsUserLoggedIn,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
