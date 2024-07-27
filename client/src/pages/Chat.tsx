@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "../styles/Chat.css";
 import { useEffect, useState } from "react";
 import { useSocket } from "../contexts/SocketContext";
 import useSocketConnection from "../hooks/useSocketConnection";

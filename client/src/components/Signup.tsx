@@ -27,45 +27,58 @@ const Signup = ({ setIsSigningUp }: SignUpArgType) => {
   return (
     <div>
       <div>
-        <h1>Create your account</h1>
+        <p className="mt-8 text-3xl font-bold">Sign up</p>
       </div>
       <div>
-        <form onSubmit={handleFormSubmission}>
-          <label>Email: </label>
-          <br />
+        <form onSubmit={handleFormSubmission} className="mt-6 max-w-sm mx-auto">
+          <label className="block font-bold">Email </label>
           <input
+            className="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             type="email"
             name="email"
             value={email}
+            placeholder="user@example.com"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <br />
-          <label>Username: </label>
-          <br />
+          <label className="block mt-4 font-bold">Username </label>
           <input
+            className="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             name="username"
             value={username}
+            placeholder="username"
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          <br />
-          <label>Password: </label>
-          <br />
+          <label className="block mt-4 font-bold">Password </label>
           <input
+            className="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             type="password"
             name="password"
             value={password}
+            placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <br />
-          <button type="submit">Signup</button>
+          <div className="mt-8">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
-      <div>
+      <div className="mt-4">
         Have an account already?{" "}
-        <div onClick={() => setIsSigningUp(false)}>Log in</div> here
+        <span
+          onClick={() => setIsSigningUp(false)}
+          className="hover:underline hover:cursor-pointer text-blue-700"
+        >
+          Sign in
+        </span>{" "}
+        here
       </div>
     </div>
   );

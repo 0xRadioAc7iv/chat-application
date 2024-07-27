@@ -26,36 +26,49 @@ const Signin = ({ setIsSigningUp }: SignInArgType) => {
   return (
     <div>
       <div>
-        <h1>Log in to your account</h1>
+        <p className="mt-8 text-3xl font-bold">Sign in</p>
       </div>
       <div>
-        <form onSubmit={handleFormSubmission}>
-          <label>Email: </label>
-          <br />
+        <form onSubmit={handleFormSubmission} className="mt-6 max-w-sm mx-auto">
+          <label className="block font-bold">Email </label>
           <input
+            className="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             type="email"
             name="email"
             value={email}
+            placeholder="user@example.com"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <br />
-          <label>Password: </label>
-          <br />
+          <label className="block mt-6 font-bold">Password </label>
           <input
+            className="mt-2 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             type="password"
             name="password"
             value={password}
+            placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <br />
-          <button type="submit">Login</button>
+          <div className="mt-8">
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
-      <div>
+      <div className="mt-4">
         Don't have an account?{" "}
-        <div onClick={() => setIsSigningUp(true)}>Sign up</div> here
+        <span
+          onClick={() => setIsSigningUp(true)}
+          className="hover:underline hover:cursor-pointer text-blue-700"
+        >
+          Sign up
+        </span>{" "}
+        here
       </div>
     </div>
   );
