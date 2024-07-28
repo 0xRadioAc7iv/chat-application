@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import { User } from "../models/User";
 import { IUser } from "../interfaces/User";
-import { comparePasswords, hashPassword } from "../helpers/passwordHelpers";
+import { comparePasswords } from "../helpers/passwordHelpers";
 
 passport.serializeUser((user, done) => {
   done(null, (user as IUser)._id);

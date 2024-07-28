@@ -2,6 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContextInterface } from "../interfaces/AuthContextType";
 import { AuthProviderProps } from "../interfaces/AuthProviderProps";
+import { SERVER_URL } from "../constants";
 
 const defaultAuthContextValue: AuthContextInterface = {
   user: "",
@@ -26,7 +27,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   }, []);
 
   const checkIsUserLoggedIn = () => {
-    fetch("http://localhost:3000/api/auth/status", { credentials: "include" })
+    fetch(`${SERVER_URL}/api/auth/status`, { credentials: "include" })
       .then(async (response) => {
         if (response.status === 200) {
           setIsAuthenticated(true);
@@ -41,7 +42,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signin = async (email: string, password: string) => {
     try {
-      const response = await fetch("http://localhost:3000/api/auth/signin", {
+      const response = await fetch(`${SERVER_URL}/api/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -61,7 +62,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const signup = async (email: string, username: string, password: string) => {
     try {
-      const response = await fetch("http://localhost:3000/api/auth/signup", {
+      const response = await fetch(`${SERVER_URL}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +83,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost:3000/api/auth/signout", {
+      await fetch(`${SERVER_URL}/api/auth/signout`, {
         method: "POST",
         credentials: "include",
       });

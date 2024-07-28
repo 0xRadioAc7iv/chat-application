@@ -6,6 +6,7 @@ import { Socket } from "socket.io-client";
 import Message from "../components/Message";
 import { useAuth } from "../contexts/AuthContext";
 import { MessageType } from "../types/Message";
+import { SERVER_URL } from "../constants";
 
 const Chat = () => {
   const [userMessage, setUserMessage] = useState("");
@@ -59,7 +60,7 @@ const Chat = () => {
   }, [socket]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/get-latest-messages")
+    fetch(`${SERVER_URL}/api/get-latest-messages`)
       .then((response) => response.json())
       .then((data) => setMessagesArray(data.latestMessages));
   }, []);
