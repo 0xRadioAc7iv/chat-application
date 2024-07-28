@@ -8,7 +8,6 @@ import session from "express-session";
 import passport from "passport";
 import authRouter from "./routes/auth";
 import MongoStore from "connect-mongo";
-import { User } from "./types/User";
 
 configDotenv();
 
@@ -18,8 +17,8 @@ const server = http.createServer(app);
 
 // Holds the latest 25 messages sent to new users on joining the server
 const latestMessages: Array<Message> = [];
-// Holds details of all the online users
-const users: Array<User> = [];
+// Holds mapping of usernames with their socket ids
+const users: Map<String, String> = new Map();
 
 const io = new Server(server, {
   cors: {
@@ -63,9 +62,6 @@ app.get("/api/get-latest-messages", (request, response) => {
 
 // Socket Events
 io.on("connection", (socket) => {
-  console.log(`${socket.id} just connected!`);
-  io.emit("new_user_connected", { user: socket.id });
-
   socket.on("send_public_message", (data) => {
     const dataToSend = {
       user: data.username,
@@ -81,15 +77,20 @@ io.on("connection", (socket) => {
     io.emit("receive_public_message", dataToSend);
   });
 
+  socket.on("add_user", (data) => {
+    users.set(socket.id, data.user);
+    io.emit("updated_user_array", Array.from(users.values()));
+  });
+
   socket.on("disconnect", () => {
-    console.log(`${socket.id} just disconnected!`);
-    io.emit("user_disconnected", { user: socket.id });
+    users.delete(socket.id);
+    io.emit("updated_user_array", Array.from(users.values()));
   });
 });
 
-mongoose.connect(process.env.MONGODB_URL as string).then(() => {
-  console.log("Connected to MongoDB");
-  server.listen(port, () => {
-    console.log(`Server is listening on port:${port}`);
-  });
-});
+mongoose
+  .connect(process.env.MONGODB_URL as string)
+  .then(() => {
+    server.listen(port);
+  })
+  .catch((error) => console.log(error));

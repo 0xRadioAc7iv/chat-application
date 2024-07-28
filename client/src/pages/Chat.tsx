@@ -15,7 +15,7 @@ type Message = {
 const Chat = () => {
   const [userMessage, setUserMessage] = useState("");
   const [messages, setMessagesArray] = useState<Array<Message>>([]);
-  const users = ["manav", "m2", "m3"];
+  const [users, setUsers] = useState<Array<String>>();
   const { user } = useAuth();
 
   const displayMessages = messages.map((message, index) => {
@@ -50,10 +50,16 @@ const Chat = () => {
       setMessagesArray((prevMessages) => [...prevMessages, { ...data }]);
     };
 
+    const handleUpdateUserArray = (data: Array<String>) => {
+      setUsers(data);
+    };
+
     socket?.on("receive_public_message", handleReceivePublicMessage);
+    socket?.on("updated_user_array", handleUpdateUserArray);
 
     return () => {
       socket?.off("receive_public_message", handleReceivePublicMessage);
+      socket?.off("updated_user_array", handleUpdateUserArray);
     };
   }, [socket]);
 
@@ -67,10 +73,10 @@ const Chat = () => {
     <div className="flex h-screen bg-gray-200">
       <div className="w-1/6 p-4 bg-white border-r border-gray-300">
         <div className="font-bold text-xl text-green-500">
-          Users Online: {users.length}
+          Users Online: {users?.length}
         </div>
         <ul className="space-y-2">
-          {users.map((user, index) => (
+          {users?.map((user, index) => (
             <li
               key={index}
               className="text-gray-800 break-all text-xl mt-6 font-bold"

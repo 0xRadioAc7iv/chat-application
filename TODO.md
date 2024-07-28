@@ -10,8 +10,7 @@
 - [x] Signup/Signin from Frontend
 - [x] Add Styling
 - [x] Show usernames in the Chat instead of Socket IDs
-- [ ] Show list and no. of users joined
-- [ ] Store ONLY the latest 100 Messages on the client side
+- [x] Show list and no. of users joined
 - [ ] Show Errors
 - [ ] Refactor & Improve the Code
 - [ ] Deploy
