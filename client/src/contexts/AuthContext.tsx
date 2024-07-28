@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContextInterface } from "../interfaces/AuthContextType";
 import { AuthProviderProps } from "../interfaces/AuthProviderProps";
 import { SERVER_URL } from "../constants";
+import { toast } from "react-toastify";
 
 const defaultAuthContextValue: AuthContextInterface = {
   user: "",
@@ -54,6 +55,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (response.status === 200) {
         setIsAuthenticated(true);
         navigate("/", { replace: true });
+      } else {
+        toast.error("Login Failed! Invalid Credentials");
       }
     } catch (error) {
       console.error("Login failed", error);
@@ -75,6 +78,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         const data = await response.json();
         setUser(data.username);
         navigate("/", { replace: true });
+      } else if (response.status === 400) {
+        const body = await response.json();
+        toast.error(`Signup Failed: ${body.msg}`);
       }
     } catch (error) {
       console.error("Signup failed", error);

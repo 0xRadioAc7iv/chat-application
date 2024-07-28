@@ -17,7 +17,7 @@ const Signin = ({ setIsSigningUp }: AuthArgType) => {
       checkIsUserLoggedIn();
       navigate("/", { replace: true });
     } catch (error) {
-      alert("Failed to sign in");
+      console.error(error);
     }
   };
 

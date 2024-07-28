@@ -14,10 +14,14 @@ router.post("/api/auth/signup", async (request, response) => {
   if (!email || !username || !password) return response.sendStatus(400);
 
   try {
-    const existingUser = await User.findOne({ email: email });
+    const existingUsersByEmail = await User.find({ email: email });
+    const existingUsersByUsername = await User.find({ username: username });
 
-    if (existingUser)
+    if (existingUsersByEmail.length > 0) {
       return response.status(400).send({ msg: "Email already in use!" });
+    } else if (existingUsersByUsername.length > 0) {
+      return response.status(400).send({ msg: "Username already in use!" });
+    }
 
     const hashedPassword = hashPassword(password);
     const newUser = new User({

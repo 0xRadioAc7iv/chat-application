@@ -3,6 +3,8 @@ import { useAuth } from "../contexts/AuthContext";
 import { useState } from "react";
 import Signup from "../components/Signup";
 import Signin from "../components/Signin";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Landing = () => {
   const { isAuthenticated, logout } = useAuth();
@@ -36,6 +38,7 @@ const Landing = () => {
             <Signin setIsSigningUp={setIsSigningUp} />
           ))}
       </div>
+      <ToastContainer />
     </div>
   );
 };
