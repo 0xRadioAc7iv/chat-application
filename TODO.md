@@ -12,5 +12,6 @@
 - [x] Show usernames in the Chat instead of Socket IDs
 - [x] Show list and no. of users joined
 - [ ] Show Errors
-- [ ] Refactor & Improve the Code
+- [x] Refactor
+- [ ] Improve the Code
 - [ ] Deploy

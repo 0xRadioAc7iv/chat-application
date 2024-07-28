@@ -1,10 +1,6 @@
-type MessageProps = {
-  user: string;
-  timeStamp: number;
-  text: string;
-};
+import { MessageType } from "../types/Message";
 
-const Message = ({ user, timeStamp, text }: MessageProps) => {
+const Message = ({ user, timeStamp, text }: MessageType) => {
   const date = new Date(timeStamp);
   const humanReadableTime = date.toLocaleTimeString([], {
     hour: "2-digit",

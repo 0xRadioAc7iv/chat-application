@@ -1,12 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useState } from "react";
+import { AuthArgType } from "../types/AuthArgType";
 
-type SignInArgType = {
-  setIsSigningUp: (arg: Boolean) => void;
-};
-
-const Signin = ({ setIsSigningUp }: SignInArgType) => {
+const Signin = ({ setIsSigningUp }: AuthArgType) => {
   const navigate = useNavigate();
   const { signin, checkIsUserLoggedIn } = useAuth();
   const [email, setEmail] = useState<string>("");

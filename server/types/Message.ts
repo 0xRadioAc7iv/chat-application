@@ -1,5 +1,5 @@
-type Message = {
+export type Message = {
   user: string;
-  text: any;
+  text: string;
   timeStamp: number;
 };

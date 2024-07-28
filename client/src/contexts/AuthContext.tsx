@@ -1,26 +1,9 @@
-import {
-  createContext,
-  useState,
-  useContext,
-  useEffect,
-  ReactNode,
-} from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContextInterface } from "../interfaces/AuthContextType";
+import { AuthProviderProps } from "../interfaces/AuthProviderProps";
 
-interface AuthContextType {
-  user: string;
-  isAuthenticated: boolean;
-  signin: (email: string, password: string) => Promise<void>;
-  signup: (email: string, username: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
-  checkIsUserLoggedIn: () => void;
-}
-
-interface AuthProviderProps {
-  children: ReactNode;
-}
-
-const defaultAuthContextValue: AuthContextType = {
+const defaultAuthContextValue: AuthContextInterface = {
   user: "",
   isAuthenticated: false,
   signin: async () => {},
@@ -29,7 +12,9 @@ const defaultAuthContextValue: AuthContextType = {
   checkIsUserLoggedIn: async () => {},
 };
 
-const AuthContext = createContext<AuthContextType>(defaultAuthContextValue);
+const AuthContext = createContext<AuthContextInterface>(
+  defaultAuthContextValue
+);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);

@@ -5,16 +5,11 @@ import useSocketConnection from "../hooks/useSocketConnection";
 import { Socket } from "socket.io-client";
 import Message from "../components/Message";
 import { useAuth } from "../contexts/AuthContext";
-
-type Message = {
-  user: string;
-  timeStamp: number;
-  text: string;
-};
+import { MessageType } from "../types/Message";
 
 const Chat = () => {
   const [userMessage, setUserMessage] = useState("");
-  const [messages, setMessagesArray] = useState<Array<Message>>([]);
+  const [messages, setMessagesArray] = useState<Array<MessageType>>([]);
   const [users, setUsers] = useState<Array<String>>();
   const { user } = useAuth();
 
@@ -46,7 +41,7 @@ const Chat = () => {
   };
 
   useEffect(() => {
-    const handleReceivePublicMessage = (data: Message) => {
+    const handleReceivePublicMessage = (data: MessageType) => {
       setMessagesArray((prevMessages) => [...prevMessages, { ...data }]);
     };
 

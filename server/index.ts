@@ -8,6 +8,7 @@ import session from "express-session";
 import passport from "passport";
 import authRouter from "./routes/auth";
 import MongoStore from "connect-mongo";
+import { Message } from "./types/Message";
 
 configDotenv();
 
